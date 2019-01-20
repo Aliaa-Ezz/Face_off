@@ -208,27 +208,31 @@ while True:
     cv2.imshow('camera', img)
     ##send id to the cloud here
     #connecting to cloudant database
-client = Cloudant.iam("b3e03381-f624-4db8-a3da-3588bface309-bluemix", "sckyMGqNGv8CX9aIcTDbrhYZYhYBDUfEXAJuXuN8SB1D")
-client.connect()
-databaseName = "attendance_toqa"
-myDatabase = client.create_database(databaseName)
-if myDatabase.exists():
+        #Use the Cloudant.iam(account_name, api_key, **kwargs) method to create a database client with an IAM API key
+ client = Cloudant.iam("b3e03381-f624-4db8-a3da-3588bface309-bluemix", "sckyMGqNGv8CX9aIcTDbrhYZYhYBDUfEXAJuXuN8SB1D")
+        #The next step is to create a database within the service instance, called attendance_toqa.
+        #We do this by defining a variable in the Python application: 
+ client.connect()
+ databaseName = "attendance_toqa"
+ myDatabase = client.create_database(databaseName)
+        #check that the database was created successfully
+ if myDatabase.exists():
    print "'{0}' successfully created.\n".format(databaseName)
 
-#sending data
-data = {
-    '_id': '30e49415829c0933ff787e6b331b3f1d', # Setting _id is optional
-    'name': 'toqa',
-    'absence': '30',
+       #sending data (sample data)
+ data = {
+     '_id': '30e49415829c0933ff787e6b331b3f1d', # Setting _id is optional
+     'name': 'toqa',
+     'absence': '30',
     
-    }
-my_document = myDatabase.create_document(data)
-#if my_document.exists():
- #   print('SUCCESS!!')
-#doc_exists = '30e49415829c0933ff787e6b331b3f1d' in myDatabase
+     }
+ my_document = myDatabase.create_document(data)
+  #if my_document.exists():
+  #   print('SUCCESS!!')
+  #doc_exists = '30e49415829c0933ff787e6b331b3f1d' in myDatabase
 
-#if doc_exists:
- #   print('document with _id 30e49415829c0933ff787e6b331b3f1d exists')
+  #if doc_exists:
+  #   print('document with _id 30e49415829c0933ff787e6b331b3f1d exists')
 
 #updating attendance
 my_document = myDatabase['30e49415829c0933ff787e6b331b3f1d']
